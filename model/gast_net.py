@@ -269,21 +269,16 @@ if __name__ == "__main__":
 
     adj = adj_mx_from_skeleton(h36m_skeleton)
     model = SpatioTemporalModel(adj, num_joints_in=17, in_features=2, num_joints_out=17,
-                                filter_widths=[3, 3, 3], channels=128)
+                                filter_widths=[3, 3, 3, 3], channels=64)
     model = model.cuda()
 
     model_params = 0
 
-    with open('../checkpoint/parameters_name.txt', 'w') as fw:
-        for name, _ in model.named_parameters():
-            fw.write('%s\n'%name)
-
-    exit(0)
     for parameter in model.parameters():
         model_params += parameter.numel()
 
     print('INFO: Trainable parameter count:', model_params)
-    input = torch.randn(2, 27, 17, 2)
+    input = torch.randn(2, 81, 17, 2)
     input = input.cuda()
 
     # summary(model, (27, 15, 2))

@@ -59,7 +59,7 @@ def parse_args():
     # General arguments
     parser.add_argument('-f', '--frames', type=int, default=27, metavar='NAME',
                         help='The number of receptive fields')
-    parser.add_argument('-w', '--weight', type=str, default='27_frame_model_new.bin', metavar='NAME',
+    parser.add_argument('-w', '--weight', type=str, default='27_frame_model.bin', metavar='NAME',
                         help='The name of model weight')
     parser.add_argument('-k', '--keypoints-file', type=str, default='./data/keypoints/baseball.json', metavar='NAME',
                         help='The path of keypoints file')
