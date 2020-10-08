@@ -1,7 +1,7 @@
 # A Graph Attention Spatio-temporal Convolutional Networks for 3D Human Pose Estimation in Video (GAST-Net)
 
 ### News
-* [2020/10/08] We achieve real-time 3D pose estimation. [video](https://www.bilibili.com/video/BV18f4y197R7/)
+* [2020/08/14] We achieve real-time 3D pose estimation. [video](https://www.bilibili.com/video/BV18f4y197R7/)
 
 ### Introduction
 3D pose estimation in video benefits from both temporal and spatial information. Spatiotemporal information can help tackle occlusion and depth ambiguities, which are outstanding problems. Previous methods focused more on time consistency and did not propose an effective way combined with spatial semantics. In this work, we improve the learning of kinematic constraints in the human skeleton; namely posture, 2nd order joint relations, and symmetry. We do this by modeling both local and global spatial information via attention mechanisms. Also, importantly, we carefully design the interleaving of spatial information with temporal information to achieve a synergistic effect.
@@ -15,9 +15,9 @@ Experiments on two challenging benchmark datasets, Human3.6M and HumanEva-I, sho
 ### FrameWork
 <img align=center>![GAST-Net Framework](./image/model.png)
 
-<img align=center>![Realtime Estimation](./image/RealtimeEstimation.gif)
 
-![](./image/WalkApart.gif)
+### Real-time estimation
+<img align=center>![Realtime Estimation](./image/RealtimeEstimation.gif)
 
 ### Dependencies
 Make sure you have the following dependencies installed before proceeding:
@@ -99,7 +99,7 @@ python reconstruction.py -f 27 -w 27_frame_model.bin -k ./data/keypoints/basebal
 ![](./image/Baseball.gif)
 
 * Reconstructed from [NTU-RGBD](http://rose1.ntu.edu.sg/datasets/actionrecognition.asp) dataset 
-![](./image/WalkTowards.gif)
+![](./image/WalkApart.gif)
 
 
 
