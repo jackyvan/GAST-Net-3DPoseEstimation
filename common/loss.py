@@ -51,3 +51,40 @@ def p_mpjpe(predicted, target):
 
     # Return MPJPE
     return np.mean(np.linalg.norm(predicted_aligned - target, axis=len(target.shape) - 1))
+
+
+def euclidean_losses(actual, target):
+    """Calculate the average Euclidean loss for multi-point samples.
+
+    Each sample must contain `n` points, each with `d` dimensions. For example,
+    in the MPII human pose estimation task n=16 (16 joint locations) and
+    d=2 (locations are 2D).
+
+    Args:
+        actual (Tensor): Predictions (B x L x D)
+        target (Tensor): Ground truth target (B x L x D)
+    """
+
+    assert actual.size() == target.size(), 'input tensors must have the same size'
+
+    # Calculate Euclidean distances between actual and target locations
+    diff = actual - target
+    dist_sq = diff.pow(2).sum(-1, keepdim=False)
+    dist = dist_sq.sqrt()
+    return dist
+
+
+def pck(actual, expected, threshold=150):
+    dists = euclidean_losses(actual, expected)
+    return (dists < threshold).double().mean().item()
+
+
+def auc(actual, expected):
+    # This range of thresholds mimics `mpii_compute_3d_pck.m`, which is provided as part of the
+    # MPI-INF-3DHP test data release.
+    thresholds = torch.linspace(0, 150, 31).tolist()
+
+    pck_values = torch.DoubleTensor(len(thresholds))
+    for i, threshold in enumerate(thresholds):
+        pck_values[i] = pck(actual, expected, threshold=threshold)
+    return pck_values.mean().item()
